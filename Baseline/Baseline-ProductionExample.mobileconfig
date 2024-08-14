@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>DialogFailureOptions</key>
+			<string>Test Window Failure</string>
+			<key>DialogListOptions</key>
+			<string>Test Window Options</string>
+			<key>DialogSuccessOptions</key>
+			<string>Test Window Success</string>
+			<key>Installomator</key>
+			<array>
+				<dict>
+					<key>DisplayName</key>
+					<string>Microsoft AutoUpdate</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Autoupdate.png</string>
+					<key>Label</key>
+					<string>microsoftautoupdate</string>
+					<key>Subtitle</key>
+					<string>Update Tool für Microsoft Anwendungen</string>
+				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>Microsoft Unternehmensportal</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/CompanyPortal.png</string>
+					<key>Label</key>
+					<string>microsoftcompanyportal</string>
+					<key>Subtitle</key>
+					<string>Unternehmensportal zur Geräteverwaltung</string>
+				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>Microsoft Office 365</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/office.png</string>
+					<key>Label</key>
+					<string>microsoftoffice365</string>
+					<key>Subtitle</key>
+					<string>Microsoft Office 365</string>
+				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>MIcrosoft Teams</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Teams.png</string>
+					<key>Label</key>
+					<string>microsoftteamsnew</string>
+					<key>Subtitle</key>
+					<string>Microsoft Teams (new)</string>
+				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>Microsoft Edge</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Edge.png</string>
+					<key>Label</key>
+					<string>microsoftedgeenterprisestable
+microsoftedgeenterprisestable
+</string>
+					<key>Subtitle</key>
+					<string>Unternehmens Browser</string>
+				</dict>
+			</array>
+			<key>Packages</key>
+			<array>
+				<dict>
+					<key>DisplayName</key>
+					<string>Privileges</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Privileges_icon_locked.png</string>
+					<key>PackagePath</key>
+					<string>https://github.com/sgmills/PrivilegesDemoter/releases/download/v3.0/PrivilegesDemoter-3.0_SAPPrivileges-1.5.4.pkg</string>
+					<key>Subtitle</key>
+					<string>Tool zur Verwaltung der Admin Rechte auf macOS</string>
+				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>Dockutil</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/settings.png</string>
+					<key>PackagePath</key>
+					<string>https://github.com/kcrawford/dockutil/releases/download/3.1.3/dockutil-3.1.3.pkg</string>
+					<key>Subtitle</key>
+					<string>Tool zur Anpassung des Docks</string>
+				</dict>
+			</array>
+			<key>PayloadDisplayName</key>
+			<string>Baseline</string>
+			<key>PayloadIdentifier</key>
+			<string>com.secondsonconsulting.baseline.D031FEC3-06B0-497A-BC0A-5D24AE8E91AD</string>
+			<key>PayloadType</key>
+			<string>com.secondsonconsulting.baseline</string>
+			<key>PayloadUUID</key>
+			<string>B7EC05EF-A31A-444A-8C1C-99609130F4D4</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>Scripts</key>
+			<array>
+				<dict>
+					<key>DisplayName</key>
+					<string>Enabling Location Services</string>
+					<key>Icon</key>
+					<string>/System/Library/PrivateFrameworks/AOSUI.framework/Versions/A/Resources/findmy.icns</string>
+					<key>MD5</key>
+					<string>c32364f1f3f7fc2410e265d82095feee</string>
+					<key>ScriptPath</key>
+					<string>https://raw.githubusercontent.com/acodega/macos/main/enable_location-services.sh</string>
+				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>Creating Dock</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Edge.png</string>
+					<key>MD5</key>
+					<string>894e953c402ff83a746a43cf558b1f5b</string>
+					<key>ScriptPath</key>
+					<string>https://github.com/Hoadalumb/macOS/blob/main/Baseline/dockApp.sh</string>
+					<key>Subtitle</key>
+					<string>Preparing your Dock</string>
+				</dict>
+			</array>
+			<key>WaitForTimeout</key>
+			<integer>10</integer>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>Configuration file for Baseline.sh</string>
+	<key>PayloadDisplayName</key>
+	<string>Baseline Config</string>
+	<key>PayloadIdentifier</key>
+	<string>SecondSon.6F1AD41D-2069-4861-B72C-C5F0D44C9B99</string>
+	<key>PayloadOrganization</key>
+	<string>anyplace IT GmbH</string>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>F18E4249-15FC-4031-BB73-0D603CF57DF7</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>
