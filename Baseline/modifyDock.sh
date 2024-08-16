@@ -25,10 +25,10 @@ createlogdir() {
 
 dockapps=(
 	"Microsoft Edge"
-	"Microsoft Outlook.app"
+	"Microsoft Outlook"
 	"Microsoft Teams"
-	"Company Portal.app"
-	"Privileges.app"
+	"Company Portal"
+	"Privileges"
 )
 
 # Start Loging
