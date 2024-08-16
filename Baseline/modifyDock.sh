@@ -54,6 +54,7 @@ for app in "${dockapps[@]}"; do
 		# Use the `mdfind` command to search for the application
 		if mdfind "kMDItemCFBundleIdentifier == '$app'" &> /dev/null; then
 			echo "$app is installed."
+   			dockutil --add "$app"
 			break
 		else
 			echo -n "."
