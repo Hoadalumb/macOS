@@ -115,9 +115,9 @@ microsoftedgeenterprisestable
 					<key>DisplayName</key>
 					<string>Creating Dock</string>
 					<key>Icon</key>
-					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Edge.png</string>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/settings.png</string>
 					<key>MD5</key>
-					<string>894e953c402ff83a746a43cf558b1f5b</string>
+					<string>cce435a3372ddb2b9cb63591b73075b4</string>
 					<key>ScriptPath</key>
 					<string>https://github.com/Hoadalumb/macOS/blob/main/Baseline/dockApp.sh</string>
 					<key>Subtitle</key>
