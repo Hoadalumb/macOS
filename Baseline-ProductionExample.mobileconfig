@@ -6,24 +6,18 @@
 	<array>
 		<dict>
 			<key>DialogFailureOptions</key>
-			<string>Test Window Failure</string>
+			<string>--title "Folgende Anwendungen wurden nicht installiert" --message "Bitte setzen Sie sich mit Ihrem Support in Verbindung"</string>
 			<key>DialogListOptions</key>
-			<string>Test Window Options</string>
+			<string>--title "Willkommen bei der anyplace IT GmbH" --message "Bitte warten Sie bis Ihr macOS vollkommen eingerichtet ist. Der Prozess kann ca. 30 Minuten daueren, Sie können sich gerne in der Zeit einen Kaffee holen"</string>
 			<key>DialogSuccessOptions</key>
-			<string>Test Window Success</string>
+			<string>--title "Alle Anwendungen wurden erfolgreich installiert" --message "Der Rechner sollte nun neugestartet werden"</string>
+			<key>IgnoreDefaultInstallomatorOptions</key>
+			<true/>
 			<key>Installomator</key>
 			<array>
 				<dict>
-					<key>DisplayName</key>
-					<string>Microsoft AutoUpdate</string>
-					<key>Icon</key>
-					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Autoupdate.png</string>
-					<key>Label</key>
-					<string>microsoftautoupdate</string>
-					<key>Subtitle</key>
-					<string>Update Tool für Microsoft Anwendungen</string>
-				</dict>
-				<dict>
+					<key>Arguments</key>
+					<string>BLOCKING_PROCESS_ACTION=ignore NOTIFY=silent INSTALL=force IGNORE_APP_STORE_APPS=yes REOPEN=0</string>
 					<key>DisplayName</key>
 					<string>Microsoft Unternehmensportal</string>
 					<key>Icon</key>
@@ -34,6 +28,8 @@
 					<string>Unternehmensportal zur Geräteverwaltung</string>
 				</dict>
 				<dict>
+					<key>Arguments</key>
+					<string>BLOCKING_PROCESS_ACTION=ignore NOTIFY=silent INSTALL=force IGNORE_APP_STORE_APPS=yes REOPEN=0</string>
 					<key>DisplayName</key>
 					<string>Microsoft Office 365</string>
 					<key>Icon</key>
@@ -44,8 +40,10 @@
 					<string>Microsoft Office 365</string>
 				</dict>
 				<dict>
+					<key>Arguments</key>
+					<string>BLOCKING_PROCESS_ACTION=ignore NOTIFY=silent INSTALL=force IGNORE_APP_STORE_APPS=yes REOPEN=0</string>
 					<key>DisplayName</key>
-					<string>MIcrosoft Teams</string>
+					<string>Microsoft Teams</string>
 					<key>Icon</key>
 					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Teams.png</string>
 					<key>Label</key>
@@ -54,18 +52,20 @@
 					<string>Microsoft Teams (new)</string>
 				</dict>
 				<dict>
+					<key>Arguments</key>
+					<string>BLOCKING_PROCESS_ACTION=ignore NOTIFY=silent INSTALL=force IGNORE_APP_STORE_APPS=yes REOPEN=0</string>
 					<key>DisplayName</key>
 					<string>Microsoft Edge</string>
 					<key>Icon</key>
 					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Edge.png</string>
 					<key>Label</key>
-					<string>microsoftedgeenterprisestable
-microsoftedgeenterprisestable
-</string>
+					<string>microsoftedge</string>
 					<key>Subtitle</key>
 					<string>Unternehmens Browser</string>
 				</dict>
 			</array>
+			<key>InstallomatorSwiftDialogIntegration</key>
+			<true/>
 			<key>Packages</key>
 			<array>
 				<dict>
@@ -96,7 +96,7 @@ microsoftedgeenterprisestable
 			<key>PayloadType</key>
 			<string>com.secondsonconsulting.baseline</string>
 			<key>PayloadUUID</key>
-			<string>B7EC05EF-A31A-444A-8C1C-99609130F4D4</string>
+			<string>92183805-0538-42E0-BF60-2AFA4A6E2F19</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Scripts</key>
@@ -119,13 +119,11 @@ microsoftedgeenterprisestable
 					<key>MD5</key>
 					<string>cce435a3372ddb2b9cb63591b73075b4</string>
 					<key>ScriptPath</key>
-					<string>https://github.com/Hoadalumb/macOS/blob/main/Baseline/dockApp.sh</string>
+					<string>https://raw.githubusercontent.com/Hoadalumb/macOS/main/Baseline/modifyDock.sh</string>
 					<key>Subtitle</key>
 					<string>Preparing your Dock</string>
 				</dict>
 			</array>
-			<key>WaitForTimeout</key>
-			<integer>10</integer>
 		</dict>
 	</array>
 	<key>PayloadDescription</key>
@@ -141,7 +139,7 @@ microsoftedgeenterprisestable
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>F18E4249-15FC-4031-BB73-0D603CF57DF7</string>
+	<string>795ADD8E-A1E0-4F4E-A793-DB1BE09737E3</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
