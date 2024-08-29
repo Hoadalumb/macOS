@@ -24,21 +24,21 @@ createlogdir() {
 
 # Array of Applications to check
 
-dockapps={
-    "Microsoft Edge"
-    "Microsoft Outlook.app"
-    "Microsoft Teams"
-    "Privileges"
-}
+dockapps=(
+    Microsoft Edge
+    Microsoft Outlook
+    Microsoft Teams
+    Privileges
+)
 
 # Array of Applications to add to dock
 
-appToadd={
+appToadd=(
     "/Applications/Microsoft Edge.app/"
     "/Applications/Microsoft Outlook.app/"
     "/Applications/Microsoft Teams.app/"
     "/Applications/Privileges.app/"
-}
+)
 
 #Start Logging
 createlogdir
