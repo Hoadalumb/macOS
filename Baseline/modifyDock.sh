@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Definierte Variablen für Script
+
 application="/usr/local/bin/dockutil"
 scriptname="addAppstoDock"
 logfile="dockutil.log"
