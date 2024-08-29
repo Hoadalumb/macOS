@@ -117,7 +117,7 @@
 					<key>Icon</key>
 					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/settings.png</string>
 					<key>MD5</key>
-					<string>cce435a3372ddb2b9cb63591b73075b4</string>
+					<string>80c57d3f931741f4a701a680ff26e583</string>
 					<key>ScriptPath</key>
 					<string>https://raw.githubusercontent.com/Hoadalumb/macOS/main/Baseline/createDock.sh</string>
 					<key>Subtitle</key>
