@@ -4,8 +4,8 @@
 application="/usr/local/bin/dockutil"
 scriptname="addAppstoDock"
 logfile="dockutil.log"
-logdir="/Library/Logs/Microsoft/IntuneScripts"
-log="$HOME/$logfile"
+logdir="/var/log/troubleshooting"
+log="$logdir/$logfile"
 max_timeout=300
 
 # Function for log directory creation
