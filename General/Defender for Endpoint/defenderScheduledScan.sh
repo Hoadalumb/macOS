@@ -4,6 +4,7 @@
 logdir="/var/log/troubleshooting"
 logfile="mdeschedulesscan.log"
 log="$logdir/$logfile"
+defenderStatus=$(mdatp health | grep healthy | awk '{print $NF}')
 
 # Function for log directory creation
 createlogdir() {
@@ -24,15 +25,10 @@ createlogdir
 exec &> >(tee -a "$log")
 
 # Check if MDE is installed and running
-if mdatp version &> /dev/null; then
-  echo "# $(date) | Microsoft Defender is installed."
-  if mdatp service status | grep -q "running"; then
-    echo "# $(date) | Microsoft Defender is running."
-  else
-    echo "# $(date) | Microsoft Defender is not running."
-  fi
+if [ "$defenderStatus" = "true" ] ; then
+  echo "# $(date) | Microsoft Defender is healthy."
 else
-  echo "# $(date) | Microsoft Defender is not installed."
+  echo "# $(date) | Microsoft Defender is not healthy."
   exit 1
 fi
 
