@@ -34,10 +34,10 @@ dockapps=(
 # Array of Applications to add to dock
 
 appToadd=(
-    "/Applications/Microsoft Edge.app/"
-    "/Applications/Microsoft Outlook.app/"
-    "/Applications/Microsoft Teams.app/"
-    "/Applications/Privileges.app/"
+    "/Applications/Microsoft Edge.app"
+    "/Applications/Microsoft Outlook.app"
+    "/Applications/Microsoft Teams.app"
+    "/Applications/Privileges.app"
 )
 
 #Start Logging
