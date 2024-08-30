@@ -82,7 +82,7 @@ if [[ -e $application ]]; then
 	for i in "${appToadd[@]}";do
 		if [[ -e $i ]]; then
 			echo "# $(date) | Die Applikation [$i] wird zum Dock hinzugefügt"
-			/usr/local/bin/dockutil --add "$i" --allhomes
+			/usr/local/bin/dockutil --add "$i"
 			
 		fi
 		
@@ -94,8 +94,8 @@ fi
 
 #Remove Bloatware from dock
 
-/usr/local/bin/dockutil --remove "Musik" --allhomes
-/usr/local/bin/dockutil --remove "TV" --allhomes
-/usr/local/bin/dockutil --remove "Freeform" --allhomes
+/usr/local/bin/dockutil --remove "Musik"
+/usr/local/bin/dockutil --remove "TV"
+/usr/local/bin/dockutil --remove "Freeform"
 
 exit 0

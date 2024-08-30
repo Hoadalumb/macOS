@@ -5,6 +5,10 @@
 	<key>PayloadContent</key>
 	<array>
 		<dict>
+			<key>BlurScreen</key>
+			<false/>
+			<key>CleanupAfterUse</key>
+			<false/>
 			<key>DialogFailureOptions</key>
 			<string>--title "Folgende Anwendungen wurden nicht installiert" --message "Bitte setzen Sie sich mit Ihrem Support in Verbindung"</string>
 			<key>DialogListOptions</key>
@@ -96,28 +100,16 @@
 			<key>PayloadType</key>
 			<string>com.secondsonconsulting.baseline</string>
 			<key>PayloadUUID</key>
-			<string>D9B0A620-DFED-46A2-8E97-D7EABF98FBB7</string>
+			<string>91FB8718-5FD9-4C38-906C-5A4057EA5B97</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Scripts</key>
 			<array>
 				<dict>
 					<key>DisplayName</key>
-					<string>Enabling Location Services</string>
-					<key>Icon</key>
-					<string>/System/Library/PrivateFrameworks/AOSUI.framework/Versions/A/Resources/findmy.icns</string>
-					<key>MD5</key>
-					<string>c32364f1f3f7fc2410e265d82095feee</string>
-					<key>ScriptPath</key>
-					<string>https://raw.githubusercontent.com/acodega/macos/main/enable_location-services.sh</string>
-				</dict>
-				<dict>
-					<key>DisplayName</key>
 					<string>Creating Dock</string>
 					<key>Icon</key>
 					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/settings.png</string>
-					<key>MD5</key>
-					<string>f03239d1f2f922c09704f9ec23ebae4f</string>
 					<key>ScriptPath</key>
 					<string>https://raw.githubusercontent.com/Hoadalumb/macOS/main/Baseline/createDock.sh</string>
 					<key>Subtitle</key>
@@ -139,7 +131,7 @@
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>3C1741D0-66C3-4E5B-8CC7-51C8BC063EA1</string>
+	<string>D3A14479-5B97-4984-B0FC-4323C822CF8A</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
