@@ -8,6 +8,7 @@ logdir="/var/log/troubleshooting"
 log="$logdir/$logfile"
 max_timeout=300
 killall="/usr/bin/killall"
+# shellcheck disable=SC2012
 loggedInUser=$( ls -l /dev/console | awk '{print $3}' )
 LoggedInUserHome="/Users/$loggedInUser"
 UserPlist=$LoggedInUserHome/Library/Preferences/com.apple.dock.plist
@@ -35,6 +36,7 @@ dockapps=(
     Microsoft Outlook
     Microsoft Teams
     Privileges
+	Company Portal
 )
 
 # Array of Applications to add to dock
@@ -44,6 +46,7 @@ appToadd=(
     "/Applications/Microsoft Outlook.app"
     "/Applications/Microsoft Teams.app"
     "/Applications/Privileges.app"
+	"/Applications/Company Portal.app"
 )
 
 #Start Logging
