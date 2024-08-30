@@ -100,7 +100,7 @@
 			<key>PayloadType</key>
 			<string>com.secondsonconsulting.baseline</string>
 			<key>PayloadUUID</key>
-			<string>91FB8718-5FD9-4C38-906C-5A4057EA5B97</string>
+			<string>D47458FC-8206-4BC1-841F-339D19A15FC5</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Scripts</key>
@@ -114,6 +114,19 @@
 					<string>https://raw.githubusercontent.com/Hoadalumb/macOS/main/Baseline/createDock.sh</string>
 					<key>Subtitle</key>
 					<string>Preparing your Dock</string>
+				</dict>
+			</array>
+			<key>WaitFor</key>
+			<array>
+				<dict>
+					<key>DisplayName</key>
+					<string>Microsoft Defender</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Defender.png</string>
+					<key>Path</key>
+					<string>/Applications/Microsoft Defender.app</string>
+					<key>Subtitle</key>
+					<string>Microsoft Antivirus</string>
 				</dict>
 			</array>
 		</dict>
@@ -131,7 +144,7 @@
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>D3A14479-5B97-4984-B0FC-4323C822CF8A</string>
+	<string>30E97B9D-CC0F-4E48-8760-8EE62FC4D00F</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
