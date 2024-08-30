@@ -7,6 +7,12 @@ logfile="dockutil.log"
 logdir="/var/log/troubleshooting"
 log="$logdir/$logfile"
 max_timeout=300
+killall="/usr/bin/killall"
+loggedInUser=$( ls -l /dev/console | awk '{print $3}' )
+LoggedInUserHome="/Users/$loggedInUser"
+UserPlist=$LoggedInUserHome/Library/Preferences/com.apple.dock.plist
+dockutil="/usr/local/bin/dockutil"
+
 
 # Function for log directory creation
 createlogdir() {
@@ -50,7 +56,9 @@ echo ""
 echo "##############################################################"
 echo "# $(date) | Starting $scriptname"
 echo "##############################################################"
-echo ""
+echo "# $(date) | Current logged-in user $loggedInUser"
+echo "##############################################################"
+
 
 # Check if all apps are successfully installed
 # Loop through the array of applications
@@ -82,7 +90,7 @@ if [[ -e $application ]]; then
 	for i in "${appToadd[@]}";do
 		if [[ -e $i ]]; then
 			echo "# $(date) | Die Applikation [$i] wird zum Dock hinzugefügt"
-			/usr/local/bin/dockutil --add "$i"
+			sudo -u "$loggedInUser" $dockutil --add "$i" --no-restart "$UserPlist"
 			
 		fi
 		
@@ -94,8 +102,10 @@ fi
 
 #Remove Bloatware from dock
 
-/usr/local/bin/dockutil --remove "Musik"
-/usr/local/bin/dockutil --remove "TV"
-/usr/local/bin/dockutil --remove "Freeform"
+sudo -u "$loggedInUser" $dockutil --remove "Musik"
+sudo -u "$loggedInUser" $dockutil --remove "TV"
+sudo -u "$loggedInUser" $dockutil --remove "Freeform"
+
+sudo -u "$loggedInUser" $killall Dock
 
 exit 0
