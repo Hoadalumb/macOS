@@ -93,7 +93,7 @@ if [[ -e $application ]]; then
 	for i in "${appToadd[@]}";do
 		if [[ -e $i ]]; then
 			echo "# $(date) | Die Applikation [$i] wird zum Dock hinzugefügt"
-			sudo -u "$loggedInUser" $dockutil --add "$i" --no-restart "$UserPlist"
+			sudo -u "$loggedInUser" dockutil --add "$i" --no-restart "$UserPlist"
 			
 		fi
 		
@@ -105,10 +105,8 @@ fi
 
 #Remove Bloatware from dock
 
-sudo -u "$loggedInUser" $dockutil --remove "Musik"
-sudo -u "$loggedInUser" $dockutil --remove "TV"
-sudo -u "$loggedInUser" $dockutil --remove "Freeform"
-
-sudo -u "$loggedInUser" $killall Dock
+sudo -u "$loggedInUser" dockutil --remove "Musik"
+sudo -u "$loggedInUser" dockutil --remove "TV"
+sudo -u "$loggedInUser" dockutil --remove "Freeform"
 
 exit 0

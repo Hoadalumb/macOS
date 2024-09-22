@@ -8,5 +8,5 @@ if [ -n "$company_portal_pid" ]; then
 kill "$company_portal_pid"
 echo "Closed Microsoft Company Portal app."
 fi
-  # Update Microsoft applications using msupdate
-  /Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install --apps only
+# Update Microsoft applications using msupdate
+/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install --apps only
