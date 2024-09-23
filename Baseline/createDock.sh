@@ -96,16 +96,16 @@ if [[ -e $dockutil ]]; then
 fi
 for app in "${APPS[@]}"; do
 	echo "# $(date) | Die Applikation [$app] wird zum Dock hinzugefügt"
-	sudo -u "$loggedInUser" $dockutil --add "/Applications/$app" --no-restart	
+	$dockutil --add "/Applications/$app" --no-restart --allhomes
 done
 
 #Remove Bloatware from dock
 echo "# $(date) | Starting remove Musik from Dock"
-sudo -u "$loggedInUser" $dockutil --remove "Musik" --no-restart
+$dockutil --remove "Musik" --no-restart --allhomes
 echo "# $(date) | Starting remove TV from Dock"
-sudo -u "$loggedInUser" $dockutil --remove "TV" --no-restart
+$dockutil --remove "TV" --no-restart --allhomes
 echo "# $(date) | Starting remove Freeform from Dock"
-sudo -u "$loggedInUser" $dockutil --remove "Freeform" --no-restart
+$dockutil --remove "Freeform" --no-restart --allhomes
 killall Dock
 
 exit 0
