@@ -1,17 +1,12 @@
 #!/bin/bash
 
 # Define variables for exetuction
-application="/usr/local/bin/dockutil"
 scriptname="addAppstoDock"
 logfile="dockutil.log"
 logdir="/var/log/troubleshooting"
 log="$logdir/$logfile"
-max_timeout=300
-killall="/usr/bin/killall"
-# shellcheck disable=SC2012
-loggedInUser=$( ls -l /dev/console | awk '{print $3}' )
-LoggedInUserHome="/Users/$loggedInUser"
-UserPlist=$LoggedInUserHome/Library/Preferences/com.apple.dock.plist
+max_timeout=600
+loggedInUser=$(stat -f%Su /dev/console)
 dockutil="/usr/local/bin/dockutil"
 
 
@@ -29,31 +24,20 @@ createlogdir() {
     
 }
 
-# Array of Applications to check
-
-dockapps=(
-    Microsoft Edge
-    Microsoft Outlook
-    Microsoft Teams
-    Privileges
-	Company Portal
-)
-
 # Array of Applications to add to dock
 
-appToadd=(
-    "/Applications/Microsoft Edge.app"
-    "/Applications/Microsoft Outlook.app"
-    "/Applications/Microsoft Teams.app"
-    "/Applications/Privileges.app"
-	"/Applications/Company Portal.app"
+APPS=(
+    "Microsoft Edge.app"
+    "Microsoft Outlook.app"
+    "Microsoft Teams.app"
+    "Company Portal.app"
 )
 
 #Start Logging
 createlogdir
 exec &> >(tee -a "$log")
 
-#Start Body od´f the Script
+#Start Body of the Script
 
 echo ""
 echo "##############################################################"
@@ -66,47 +50,62 @@ echo "##############################################################"
 # Check if all apps are successfully installed
 # Loop through the array of applications
 
-for app in "${dockapps[@]}"; do
-	echo "Waiting for $app to be installed..."
-	timeout_count=0
-	while true; do
-		# Use the `mdfind` command to search for the application
-		if mdfind "kMDItemCFBundleIdentifier == '$app'" &> /dev/null; then
-			echo "$app is installed."
-			break
-		else
-			echo -n "."
-			sleep 1
-			((timeout_count++))
-			if [ $timeout_count -ge $max_timeout ]; then
-				echo "Timeout reached: $app not installed after $max_timeout seconds."
-				break
-			fi
-		fi
-	done
+# Function to check if an application is installed
+
+check_app_installed() {
+    local app_name=$1
+    local app_path="/Applications/$app_name"
+    if [ -d "$app_path" ]; then
+        return 0  # Return true if the app is found
+    else
+        return 1  # Return false if the app is not found
+    fi
+}
+
+# Keep checking until all applications are installed
+while true; do
+    all_installed=true  # Assume all are installed
+
+    # Iterate over each app in the list
+    for app in "${APPS[@]}"; do
+        if check_app_installed "$app"; then
+            echo "# $(date) | $app is installed."
+        else
+            echo "# $(date) |$app is NOT installed yet. Checking again in 30 seconds..."
+            all_installed=false  # Set flag to false if any app is not found
+        fi
+    done
+
+    # Break the loop if all applications are installed
+    if $all_installed; then
+        echo "# $(date) | All applications are installed!"
+        break
+    fi
+
+    # Wait for 30 seconds before checking again
+    sleep 30
 done
 
 # Check for dockutil
 
-if [[ -e $application ]]; then
+if [[ -e $dockutil ]]; then
 	echo "# $(date) | Dockutil wurde gefunden"
-	for i in "${appToadd[@]}";do
-		if [[ -e $i ]]; then
-			echo "# $(date) | Die Applikation [$i] wird zum Dock hinzugefügt"
-			sudo -u "$loggedInUser" dockutil --add "$i" --no-restart "$UserPlist"
-			
-		fi
-		
-	done
-else
+	else
 	echo "# $(date) | Dockutil wurde nicht gefunden Vorgang wird abgebrochen"
 	exit 1
 fi
+for app in "${APPS[@]}"; do
+	echo "# $(date) | Die Applikation [$app] wird zum Dock hinzugefügt"
+	sudo -u "$loggedInUser" $dockutil --add "/Applications/$app" --no-restart	
+done
 
 #Remove Bloatware from dock
-
-sudo -u "$loggedInUser" dockutil --remove "Musik"
-sudo -u "$loggedInUser" dockutil --remove "TV"
-sudo -u "$loggedInUser" dockutil --remove "Freeform"
+echo "# $(date) | Starting remove Musik from Dock"
+sudo -u "$loggedInUser" $dockutil --remove "Musik" --no-restart
+echo "# $(date) | Starting remove TV from Dock"
+sudo -u "$loggedInUser" $dockutil --remove "TV" --no-restart
+echo "# $(date) | Starting remove Freeform from Dock"
+sudo -u "$loggedInUser" $dockutil --remove "Freeform" --no-restart
+killall Dock
 
 exit 0

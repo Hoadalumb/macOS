@@ -82,16 +82,6 @@
 					<key>Subtitle</key>
 					<string>Tool zur Verwaltung der Admin Rechte auf macOS</string>
 				</dict>
-				<dict>
-					<key>DisplayName</key>
-					<string>Dockutil</string>
-					<key>Icon</key>
-					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/settings.png</string>
-					<key>PackagePath</key>
-					<string>https://github.com/kcrawford/dockutil/releases/download/3.1.3/dockutil-3.1.3.pkg</string>
-					<key>Subtitle</key>
-					<string>Tool zur Anpassung des Docks</string>
-				</dict>
 			</array>
 			<key>PayloadDisplayName</key>
 			<string>Baseline</string>
@@ -103,19 +93,6 @@
 			<string>D47458FC-8206-4BC1-841F-339D19A15FC5</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
-			<key>Scripts</key>
-			<array>
-				<dict>
-					<key>DisplayName</key>
-					<string>Creating Dock</string>
-					<key>Icon</key>
-					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/settings.png</string>
-					<key>ScriptPath</key>
-					<string>https://raw.githubusercontent.com/Hoadalumb/macOS/main/Baseline/createDock.sh</string>
-					<key>Subtitle</key>
-					<string>Preparing your Dock</string>
-				</dict>
-			</array>
 			<key>WaitFor</key>
 			<array>
 				<dict>

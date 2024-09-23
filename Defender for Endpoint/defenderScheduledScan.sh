@@ -38,5 +38,5 @@ mdatp config scheduled-scan quick-scan time-of-day --value 780
 
 # Schedule weekly full scan
 echo "# $(date) ] Set weekly full scan to friday 13:00 Uhr"
-sudo mdatp config scheduled-scan weekly-scan --day-of-week 6 --time-of-day 780 -scan-type full
+mdatp config scheduled-scan weekly-scan --day-of-week 6 --time-of-day 780 -scan-type full
 exit 0
