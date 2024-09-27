@@ -30,6 +30,7 @@ APPS=(
     "Microsoft Outlook.app"
     "Microsoft Teams.app"
     "Company Portal.app"
+    "Privileges.app"
 )
 
 #Start Logging
@@ -95,16 +96,22 @@ if [[ -e $dockutil ]]; then
 fi
 for app in "${APPS[@]}"; do
 	echo "# $(date) | Die Applikation [$app] wird zum Dock hinzugefügt"
-	sudo -u "$loggedInUser" -E $dockutil --add "/Applications/$app" --no-restart
+	"$dockutil" --add "/Applications/$app" --allhomes --no-restart
 done
 
 #Remove Bloatware from dock
 echo "# $(date) | Starting remove Musik from Dock"
-sudo -u "$loggedInUser" -E $dockutil --remove "Musik" --no-restart --allhomes
+"$dockutil" --remove "Musik" --no-restart --allhomes
 echo "# $(date) | Starting remove TV from Dock"
-sudo -u "$loggedInUser" -E $dockutil --remove "TV" --no-restart --allhomes
+"$dockutil" --remove "TV" --no-restart --allhomes
 echo "# $(date) | Starting remove Freeform from Dock"
-sudo -u "$loggedInUser" -E $dockutil --remove "Freeform" --no-restart --allhomes
+"$dockutil" --remove "Freeform" --no-restart --allhomes
+echo "# $(date) | Starting remove Keynote from Dock"
+"$dockutil" --remove "Keynote" --no-restart --allhomes
+echo "# $(date) | Starting remove Numbers from Dock"
+"$dockutil" --remove "Numbers" --no-restart --allhomes
+echo "# $(date) | Starting remove Pages from Dock"
+"$dockutil" --remove "Pages" --no-restart --allhomes
 # Restart Dock to apply changes
 killall Dock
 

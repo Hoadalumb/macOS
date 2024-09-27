@@ -103,19 +103,6 @@
 			<string>D47458FC-8206-4BC1-841F-339D19A15FC5</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
-			<key>Scripts</key>
-			<array>
-				<dict>
-					<key>DisplayName</key>
-					<string>Dock</string>
-					<key>Icon</key>
-					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/settings.png</string>
-					<key>ScriptPath</key>
-					<string>https://raw.githubusercontent.com/Hoadalumb/macOS/refs/heads/main/Baseline/createDock.sh</string>
-					<key>Subtitle</key>
-					<string>Preparing your Dock</string>
-				</dict>
-			</array>
 			<key>WaitFor</key>
 			<array>
 				<dict>

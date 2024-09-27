@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Varibales for the script
+msupdate="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/msupdate"
 logdir="/var/log/troubleshooting"
 logfile="msupdate.log"
 log="$logdir/$logfile"
@@ -42,4 +43,4 @@ echo "Closed Microsoft OneDrive app."
 fi
 
 # Update Microsoft applications using msupdate
-/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install --apps ONDR18 IMCP01
+"$msupdate" --install --apps ONDR18 IMCP01
