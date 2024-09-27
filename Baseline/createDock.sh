@@ -5,7 +5,6 @@ scriptname="addAppstoDock"
 logfile="dockutil.log"
 logdir="/var/log/troubleshooting"
 log="$logdir/$logfile"
-max_timeout=600
 loggedInUser=$(stat -f%Su /dev/console)
 dockutil="/usr/local/bin/dockutil"
 
@@ -96,16 +95,17 @@ if [[ -e $dockutil ]]; then
 fi
 for app in "${APPS[@]}"; do
 	echo "# $(date) | Die Applikation [$app] wird zum Dock hinzugefügt"
-	$dockutil --add "/Applications/$app" --no-restart --allhomes
+	sudo -u "$loggedInUser" -E $dockutil --add "/Applications/$app" --no-restart
 done
 
 #Remove Bloatware from dock
 echo "# $(date) | Starting remove Musik from Dock"
-$dockutil --remove "Musik" --no-restart --allhomes
+sudo -u "$loggedInUser" -E $dockutil --remove "Musik" --no-restart --allhomes
 echo "# $(date) | Starting remove TV from Dock"
-$dockutil --remove "TV" --no-restart --allhomes
+sudo -u "$loggedInUser" -E $dockutil --remove "TV" --no-restart --allhomes
 echo "# $(date) | Starting remove Freeform from Dock"
-$dockutil --remove "Freeform" --no-restart --allhomes
+sudo -u "$loggedInUser" -E $dockutil --remove "Freeform" --no-restart --allhomes
+# Restart Dock to apply changes
 killall Dock
 
 exit 0
