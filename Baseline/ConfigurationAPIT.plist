@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DialogFailureOptions</key>
+	<string>--title "Folgende Anwendungen wurden nicht installiert" --message "Bitte setzen Sie sich mit Ihrem Support in Verbindung"</string>
+	<key>DialogListOptions</key>
+	<string>--title "Willkommen bei der anyplace IT GmbH" --message "Bitte warten Sie bis Ihr macOS vollkommen eingerichtet ist. Der Prozess kann ca. 30 Minuten daueren, Sie können sich gerne in der Zeit einen Kaffee holen"</string>
+	<key>DialogSuccessOptions</key>
+	<string>--title "Alle Anwendungen wurden erfolgreich installiert" --message "Der Rechner sollte nun neugestartet werden"</string>
+	<key>IgnoreDefaultInstallomatorOptions</key>
+	<true/>
+	<key>InitialScripts</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Registration</string>
+			<key>ScriptPath</key>
+			<string>/usr/local/Baseline/Scripts/registration.sh</string>
+		</dict>
+	</array>
+	<key>Installomator</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Microsoft Office 365</string>
+			<key>Icon</key>
+			<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/office.png</string>
+			<key>Label</key>
+			<string>microsoftoffice365</string>
+			<key>Subtitle</key>
+			<string>Microsoft Office 365</string>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Microsoft Teams</string>
+			<key>Icon</key>
+			<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Teams.png</string>
+			<key>Label</key>
+			<string>microsoftteams-rollingout</string>
+			<key>Subtitle</key>
+			<string>Microsoft Teams (new)</string>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Microsoft Edge</string>
+			<key>Icon</key>
+			<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Edge.png</string>
+			<key>Label</key>
+			<string>microsoftedge</string>
+			<key>Subtitle</key>
+			<string>Unternehmens Browser</string>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>1Password8</string>
+			<key>Icon</key>
+			<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/1password-install.png</string>
+			<key>Label</key>
+			<string>1password8</string>
+			<key>Subtitle</key>
+			<string>Password Management Tool</string>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Jabra Direct</string>
+			<key>Icon</key>
+			<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/jabra-install.png</string>
+			<key>Label</key>
+			<string>jabradirect</string>
+			<key>Subtitle</key>
+			<string>Headset Software</string>
+		</dict>
+	</array>
+	<key>InstallomatorSwiftDialogIntegration</key>
+	<true/>
+	<key>Restart</key>
+	<false/>
+	<key>Scripts</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Company Portal</string>
+			<key>Icon</key>
+			<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/CompanyPortal.png</string>
+			<key>ScriptPath</key>
+			<string>https://raw.githubusercontent.com/microsoft/shell-intune-samples/master/macOS/Apps/Company%20Portal/installCompanyPortal.zsh</string>
+			<key>Subtitle</key>
+			<string>Unternehmensportal zur Geräteverwaltung</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<string>policy -event InstallJamfConnect</string>
+			<key>DisplayName</key>
+			<string>Jamf Connect</string>
+			<key>Icon</key>
+			<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/jamf-connect-install.png</string>
+			<key>ScriptPath</key>
+			<string>/usr/local/bin/jamf</string>
+		</dict>
+	</array>
+</dict>
+</plist>

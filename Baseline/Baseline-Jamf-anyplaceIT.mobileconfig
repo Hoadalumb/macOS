@@ -13,6 +13,15 @@
 			<string>--title "Alle Anwendungen wurden erfolgreich installiert" --message "Der Rechner sollte nun neugestartet werden"</string>
 			<key>IgnoreDefaultInstallomatorOptions</key>
 			<true/>
+			<key>InitialScripts</key>
+			<array>
+				<dict>
+					<key>DisplayName</key>
+					<string>Registration</string>
+					<key>ScriptPath</key>
+					<string>/usr/local/Baseline/Scripts/registration.sh</string>
+				</dict>
+			</array>
 			<key>Installomator</key>
 			<array>
 				<dict>
@@ -45,22 +54,29 @@
 					<key>Subtitle</key>
 					<string>Unternehmens Browser</string>
 				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>1Password8</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/1password-install.png</string>
+					<key>Label</key>
+					<string>1password8</string>
+					<key>Subtitle</key>
+					<string>Password Management Tool</string>
+				</dict>
+				<dict>
+					<key>DisplayName</key>
+					<string>Jabra Direct</string>
+					<key>Icon</key>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/jabra-install.png</string>
+					<key>Label</key>
+					<string>jabradirect</string>
+					<key>Subtitle</key>
+					<string>Headset Software</string>
+				</dict>
 			</array>
 			<key>InstallomatorSwiftDialogIntegration</key>
 			<true/>
-			<key>Packages</key>
-			<array>
-				<dict>
-					<key>DisplayName</key>
-					<string>Privileges</string>
-					<key>Icon</key>
-					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Privileges_icon_locked.png</string>
-					<key>PackagePath</key>
-					<string>https://github.com/sgmills/PrivilegesDemoter/releases/download/v3.0/PrivilegesDemoter-3.0_SAPPrivileges-1.5.4.pkg</string>
-					<key>Subtitle</key>
-					<string>Tool zur Verwaltung der Admin Rechte auf macOS</string>
-				</dict>
-			</array>
 			<key>PayloadDisplayName</key>
 			<string>Baseline</string>
 			<key>PayloadIdentifier</key>
@@ -85,18 +101,15 @@
 					<key>Subtitle</key>
 					<string>Unternehmensportal zur Geräteverwaltung</string>
 				</dict>
-			</array>
-			<key>WaitFor</key>
-			<array>
 				<dict>
+					<key>Arguments</key>
+					<string>policy -event InstallJamfConnect</string>
 					<key>DisplayName</key>
-					<string>Microsoft Defender</string>
+					<string>Jamf Connect</string>
 					<key>Icon</key>
-					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/Defender.png</string>
-					<key>Path</key>
-					<string>/Applications/Microsoft Defender.app</string>
-					<key>Subtitle</key>
-					<string>Microsoft Antivirus</string>
+					<string>https://baselineapit.blob.core.windows.net/resources/AppIcons/jamf-connect-install.png</string>
+					<key>ScriptPath</key>
+					<string>/usr/local/bin/jamf</string>
 				</dict>
 			</array>
 		</dict>
@@ -106,7 +119,7 @@
 	<key>PayloadDisplayName</key>
 	<string>Baseline Config</string>
 	<key>PayloadIdentifier</key>
-	<string>SecondSon.6F1AD41D-2069-4861-B72C-C5F0D44C9B99</string>
+	<string>com.baseline.config</string>
 	<key>PayloadOrganization</key>
 	<string>anyplace IT GmbH</string>
 	<key>PayloadScope</key>
