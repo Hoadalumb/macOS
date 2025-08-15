@@ -67,6 +67,8 @@ https://chatgpt.com/c/689eddc8-0a74-8324-b276-5f369d8851d3#:~:text=%3E-,/Library
 					<false/>
 					<key>DisplayName</key>
 					<string>Finishing Tasks</string>
+					<key>ScriptPath</key>
+					<string>https://raw.githubusercontent.com/Hoadalumb/macOS/refs/heads/main/Baseline/exitCondition.sh</string>
 				</dict>
 			</array>
 			<key>IgnoreDefaultInstallomatorOptions</key>
@@ -159,6 +161,8 @@ https://chatgpt.com/c/689eddc8-0a74-8324-b276-5f369d8851d3#:~:text=%3E-,/Library
 			<string>802C8302-D7EC-413F-B8FB-6F31717BAD52</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
+			<key>Restart</key>
+			<false/>
 			<key>Scripts</key>
 			<array>
 				<dict>

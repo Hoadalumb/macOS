@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -13,6 +14,49 @@
 						<dict>
 							<key>mcx_preference_settings</key>
 							<dict>
+								<key>AllowCLIBiometricAuthentication</key>
+								<true/>
+								<key>DockToggleMaxTimeout</key>
+								<integer>10</integer>
+								<key>DockToggleTimeout</key>
+								<integer>10</integer>
+								<key>ExpirationIntervalMax</key>
+								<integer>10</integer>
+								<key>HideOtherWindows</key>
+								<true/>
+								<key>HideSettingsButton</key>
+								<true/>
+								<key>HideSettingsFromDockMenu</key>
+								<true/>
+								<key>ReasonCheckingEnabled</key>
+								<true/>
+								<key>ReasonMinLength</key>
+								<integer>10</integer>
+								<key>ReasonPresetList</key>
+								<array>
+									<dict>
+										<key>de</key>
+										<string>Installation</string>
+										<key>en</key>
+										<string>Installation</string>
+									</dict>
+									<dict>
+										<key>de</key>
+										<string>Einstellungen Ändern</string>
+										<key>en</key>
+										<string>Change of Settings</string>
+									</dict>
+									<dict>
+										<key>de</key>
+										<string>Sonstiges</string>
+										<key>en</key>
+										<string>Others</string>
+									</dict>
+								</array>
+								<key>ReasonRequired</key>
+								<true/>
+								<key>RequireAuthentication</key>
+								<true/>
 								<key>RevokePrivilegesAtLogin</key>
 								<true/>
 							</dict>
@@ -44,17 +88,19 @@
 					<key>AlertType</key>
 					<integer>1</integer>
 					<key>BadgesEnabled</key>
-					<false/>
+					<true/>
 					<key>BundleIdentifier</key>
 					<string>corp.sap.privileges.agent</string>
+					<key>CriticalAlertEnabled</key>
+					<true/>
 					<key>NotificationsEnabled</key>
 					<true/>
 					<key>ShowInLockScreen</key>
-					<false/>
+					<true/>
 					<key>ShowInNotificationCenter</key>
-					<false/>
+					<true/>
 					<key>SoundsEnabled</key>
-					<false/>
+					<true/>
 				</dict>
 			</array>
 			<key>PayloadDisplayName</key>
