@@ -11,7 +11,7 @@ mkdir -p "/Library/Application Support/anyplaceIT"
 touch "$EXIT_PATH"
 
 # Set restrictive permissions (root read/write only)
-chmod 600 "$EXIT_PATH"
+chmod 755 "$EXIT_PATH"
 chown root:wheel "$EXIT_PATH"
 
 echo "Created exit-condition file: $EXIT_PATH"
