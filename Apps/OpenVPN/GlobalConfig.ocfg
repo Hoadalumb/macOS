@@ -1,0 +1,24 @@
+{
+  "profiles": [
+    {
+      "profile_name": "APIT MS 365",
+      "profile_path": "~/Downloads/example.ovpn"
+    }
+  ],
+  
+  "settings": {
+    "vpn-protocol": "adaptive",
+    "timeout": "30",
+    "launch-options": "connect-latest",
+    "seamless-tunnel": true,
+    "hide-dock-icon": false,
+    "captive-portal-detection": true,
+    "software-update": "weekly",
+    "theme": "system",
+    "tray-icon-style": "colorful",
+    "confirmation-dialogs": "on-disconnect",
+    "security-level": "preferred",
+    "enforce-tls-1-3": true,
+    "block-ipv6": "no"
+  }
+}
