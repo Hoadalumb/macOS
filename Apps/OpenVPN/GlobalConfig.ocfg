@@ -2,7 +2,7 @@
   "profiles": [
     {
       "profile_name": "APIT MS 365",
-      "profile_path": "~/Downloads/example.ovpn"
+      "profile_path": "/Users/Shared/example.ovpn"
     }
   ],
   
