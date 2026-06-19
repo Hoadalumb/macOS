@@ -2,10 +2,10 @@
 set -e
 
 # Path to the exit-condition file
-EXIT_PATH="/Library/Application Support/anyplaceIT/.baseline_completed"
+EXIT_PATH="/Library/Application Support/APITMS365/.baseline_completed"
 
 # Create parent directory if it doesn't exist
-mkdir -p "/Library/Application Support/anyplaceIT"
+mkdir -p "/Library/Application Support/APITMS365"
 
 # Create the hidden file
 touch "$EXIT_PATH"
