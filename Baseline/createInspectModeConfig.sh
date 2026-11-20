@@ -248,7 +248,8 @@ function createInspectConfig() {
                 "Microsoft Outlook wird installiert – E-Mail, Kalender und Kontakte an einem Ort.",
                 "Microsoft OneNote wird installiert – halten Sie Ideen und Notizen zentral fest.",
                 "Microsoft OneDrive wird installiert – greifen Sie sicher auf Ihre Dateien zu.",
-                "Microsoft Teams wird installiert – chatten, telefonieren und arbeiten Sie gemeinsam."
+                "Microsoft Teams wird installiert – chatten, telefonieren und arbeiten Sie gemeinsam.",
+                "Microsoft Edge wird installiert – sicher und schnell im Web arbeiten."
             ],
             sideInterval: 8,
 
@@ -326,6 +327,16 @@ function createInspectConfig() {
                         "/Applications/Microsoft Teams.app"
                     ],
                     icon: "https://baselineapit.blob.core.windows.net/resources/AppIcons/Teams.png",
+                    showBundleInfo: "all"
+                },
+                {
+                    id: "microsoftedge",
+                    displayName: "Microsoft Edge",
+                    guiIndex: 7,
+                    paths: [
+                        "/Applications/Microsoft Edge.app"
+                    ],
+                    icon: "https://baselineapit.blob.core.windows.net/resources/AppIcons/Edge.png",
                     showBundleInfo: "all"
                 }
             ]
