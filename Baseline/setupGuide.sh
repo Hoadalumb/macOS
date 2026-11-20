@@ -6,7 +6,8 @@
 #
 # Purpose:
 #   Shows a guided setup window after the Baseline installation and performs each step
-#   (Microsoft Edge as default browser, Dock layout) while the user is on that step.
+#   (Microsoft Edge as default browser, Microsoft Outlook as default mail application,
+#   installation check, Dock layout) while the user is on that step.
 #
 # Execution:
 #   Run as a Baseline FinalScript with AsUser set to false.
@@ -29,7 +30,7 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 #
 ####################################################################################################
 
-readonly scriptVersion="1.0.0"
+readonly scriptVersion="1.1.0"
 readonly humanReadableScriptName="swiftDialog setup guide"
 
 readonly scriptLog="/var/log/apitmsSetupGuide.log"
@@ -45,10 +46,15 @@ readonly edgeAppPath="/Applications/Microsoft Edge.app"
 readonly edgeBundleID="com.microsoft.edgemac"
 readonly edgeConfirmationTimeout=180
 
+readonly outlookAppPath="/Applications/Microsoft Outlook.app"
+readonly outlookBundleID="com.microsoft.Outlook"
+readonly outlookConfirmationTimeout=60
+
 readonly guideDirectory="/var/tmp/apitms-guide"
 readonly guideJSONFile="${guideDirectory}/setup-guide.json"
 readonly guideStateDirectory="${guideDirectory}/state"
 readonly edgeMarker="${guideDirectory}/edge.done"
+readonly mailMarker="${guideDirectory}/mail.done"
 readonly checkMarker="${guideDirectory}/check.done"
 readonly dockMarker="${guideDirectory}/dock.done"
 
@@ -57,11 +63,13 @@ readonly interactionLog="/tmp/preset6_interaction.log"
 
 # Guide step indexes, must match the order of "items" in the JSON.
 readonly edgeStepIndex=1
-readonly checkStepIndex=2
-readonly dockStepIndex=3
+readonly mailStepIndex=2
+readonly checkStepIndex=3
+readonly dockStepIndex=4
 
-# Applications installed by Baseline as "Installomator label|Display name|Path".
+# Required applications as "Installomator label|Display name|Path".
 # Used for the installation check and, in this order, for the Dock.
+# Company Portal is installed by Intune; Installomator is only the fallback if it is missing.
 readonly requiredApps=(
     "microsoftedge|Microsoft Edge|/Applications/Microsoft Edge.app"
     "microsoftoutlook|Microsoft Outlook|/Applications/Microsoft Outlook.app"
@@ -71,6 +79,8 @@ readonly requiredApps=(
     "microsoftpowerpoint|Microsoft PowerPoint|/Applications/Microsoft PowerPoint.app"
     "microsoftonenote|Microsoft OneNote|/Applications/Microsoft OneNote.app"
     "microsoftonedrive|OneDrive|/Applications/OneDrive.app"
+    "microsoftcompanyportal|Company Portal|/Applications/Company Portal.app"
+    "microsoftautoupdate|Microsoft AutoUpdate|/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app"
 )
 
 typeset dialogPID=""
@@ -224,6 +234,7 @@ function createGuideConfig() {
         --arg applicationIcon "${defaultApplicationIcon}" \
         --arg highlightColor "${organizationHighlightColor}" \
         --arg edgeMarker "${edgeMarker}" \
+        --arg mailMarker "${mailMarker}" \
         --arg checkMarker "${checkMarker}" \
         --arg dockMarker "${dockMarker}" \
         '
@@ -246,6 +257,7 @@ function createGuideConfig() {
                         { type: "text", content: "Alle Microsoft 365-Anwendungen wurden installiert. Wir richten jetzt noch Ihren Arbeitsplatz ein." },
                         { type: "bullets", items: [
                             "Microsoft Edge als Standardbrowser",
+                            "Microsoft Outlook als Standard-E-Mail-Programm",
                             "Prüfung der installierten Anwendungen",
                             "Dock mit Ihren Anwendungen"
                         ] }
@@ -268,9 +280,24 @@ function createGuideConfig() {
                     ]
                 },
                 {
+                    id: "mail",
+                    displayName: "E-Mail-Programm",
+                    guiIndex: 2,
+                    icon: "SF=envelope.fill",
+                    stepType: "processing",
+                    processingMode: "progressive",
+                    waitForExternalTrigger: true,
+                    processingMessage: "Microsoft Outlook wird als Standard-E-Mail-Programm festgelegt …",
+                    paths: [ $mailMarker ],
+                    guidanceTitle: "Microsoft Outlook als Standard-E-Mail-Programm",
+                    guidanceContent: [
+                        { type: "text", content: "Microsoft Outlook wird als Standard-E-Mail-Programm festgelegt, damit E-Mail-Links und „Senden an“ direkt eine neue Nachricht in Outlook öffnen." }
+                    ]
+                },
+                {
                     id: "check",
                     displayName: "Prüfung",
-                    guiIndex: 2,
+                    guiIndex: 3,
                     icon: "SF=checklist",
                     stepType: "processing",
                     processingMode: "progressive",
@@ -286,7 +313,7 @@ function createGuideConfig() {
                 {
                     id: "dock",
                     displayName: "Dock",
-                    guiIndex: 3,
+                    guiIndex: 4,
                     icon: "SF=dock.rectangle",
                     stepType: "processing",
                     processingMode: "progressive",
@@ -295,13 +322,14 @@ function createGuideConfig() {
                     paths: [ $dockMarker ],
                     guidanceTitle: "Dock einrichten",
                     guidanceContent: [
-                        { type: "text", content: "Ihre installierten Anwendungen werden im Dock abgelegt, damit Sie sie mit einem Klick starten können." }
+                        { type: "text", content: "Ihre installierten Anwendungen werden im Dock abgelegt, damit Sie sie mit einem Klick starten können." },
+                        { type: "info", content: "Über das Unternehmensportal installieren Sie weitere Firmen-Apps, mit Microsoft AutoUpdate halten Sie Microsoft 365 aktuell." }
                     ]
                 },
                 {
                     id: "done",
                     displayName: "Fertig",
-                    guiIndex: 4,
+                    guiIndex: 5,
                     icon: "SF=checkmark.seal.fill",
                     stepType: "info",
                     paths: [],
@@ -392,6 +420,44 @@ function setEdgeAsDefaultBrowser() {
     fi
 
     info "Microsoft Edge is now the default browser."
+}
+
+function currentDefaultMailApp() {
+    runAsUser /usr/bin/osascript -l JavaScript -e "
+        ObjC.import('AppKit');
+        \$.NSWorkspace.sharedWorkspace.URLForApplicationToOpenURL(\$.NSURL.URLWithString('mailto:user@example.com')).path.js
+    " 2>/dev/null
+}
+
+function setOutlookAsDefaultMail() {
+    if [[ ! -d "${outlookAppPath}" ]]; then
+        warning "'${outlookAppPath}' is not installed; skipping the default mail application."
+        return 0
+    fi
+
+    if [[ "$(currentDefaultMailApp)" == "${outlookAppPath}" ]]; then
+        info "Microsoft Outlook is already the default mail application."
+        return 0
+    fi
+
+    # Unlike the browser, macOS changes the mail handler without a confirmation prompt.
+    info "Requesting Microsoft Outlook as default handler for 'mailto'."
+    runAsUser /usr/bin/osascript -l JavaScript -e "
+        ObjC.import('CoreServices');
+        \$.LSSetDefaultHandlerForURLScheme(\$('mailto'), \$('${outlookBundleID}'));
+    " > /dev/null 2>&1
+
+    local waited=0
+    until [[ "$(currentDefaultMailApp)" == "${outlookAppPath}" ]]; do
+        if [[ "${waited}" -ge "${outlookConfirmationTimeout}" ]]; then
+            warning "Microsoft Outlook was not set as default mail application within ${outlookConfirmationTimeout} seconds."
+            return 0
+        fi
+        /bin/sleep 2
+        waited=$(( waited + 2 ))
+    done
+
+    info "Microsoft Outlook is now the default mail application."
 }
 
 function checkInstalledApps() {
@@ -500,6 +566,11 @@ dialogPID=$!
 if waitForStep "${edgeStepIndex}"; then
     setEdgeAsDefaultBrowser
     /usr/bin/touch "${edgeMarker}"
+fi
+
+if waitForStep "${mailStepIndex}"; then
+    setOutlookAsDefaultMail
+    /usr/bin/touch "${mailMarker}"
 fi
 
 if waitForStep "${checkStepIndex}"; then
