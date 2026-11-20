@@ -7,7 +7,8 @@
 # Purpose:
 #   Shows a guided setup window after the Baseline installation and performs each step
 #   (Microsoft Edge as default browser, Microsoft Outlook as default mail application,
-#   installation check, Dock layout) while the user is on that step.
+#   installation check, Dock layout, Company Portal sign-in, Teams screen recording)
+#   while the user is on that step.
 #
 # Execution:
 #   Run as a Baseline FinalScript with AsUser set to false.
@@ -30,7 +31,7 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 #
 ####################################################################################################
 
-readonly scriptVersion="1.1.0"
+readonly scriptVersion="1.2.0"
 readonly humanReadableScriptName="swiftDialog setup guide"
 
 readonly scriptLog="/var/log/apitmsSetupGuide.log"
@@ -66,6 +67,12 @@ readonly edgeStepIndex=1
 readonly mailStepIndex=2
 readonly checkStepIndex=3
 readonly dockStepIndex=4
+readonly portalStepIndex=5
+readonly screenStepIndex=6
+
+readonly companyPortalAppPath="/Applications/Company Portal.app"
+readonly teamsAppPath="/Applications/Microsoft Teams.app"
+readonly screenRecordingSettingsURL="x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_ScreenCapture"
 
 # Required applications as "Installomator label|Display name|Path".
 # Used for the installation check and, in this order, for the Dock.
@@ -259,7 +266,9 @@ function createGuideConfig() {
                             "Microsoft Edge als Standardbrowser",
                             "Microsoft Outlook als Standard-E-Mail-Programm",
                             "Prüfung der installierten Anwendungen",
-                            "Dock mit Ihren Anwendungen"
+                            "Dock mit Ihren Anwendungen",
+                            "Anmeldung im Unternehmensportal",
+                            "Bildschirmfreigabe für Microsoft Teams"
                         ] }
                     ]
                 },
@@ -327,9 +336,45 @@ function createGuideConfig() {
                     ]
                 },
                 {
+                    id: "portal",
+                    displayName: "Unternehmensportal",
+                    guiIndex: 5,
+                    icon: "SF=building.2.fill",
+                    stepType: "info",
+                    paths: [],
+                    guidanceTitle: "Im Unternehmensportal anmelden",
+                    guidanceContent: [
+                        { type: "text", content: "Das Unternehmensportal wird jetzt geöffnet. Mit der Anmeldung wird Ihr Mac bei der anyplace IT GmbH registriert. Erst danach können Sie Outlook, Teams und OneDrive mit Ihrem Firmenkonto nutzen." },
+                        { type: "bullets", items: [
+                            "Klicken Sie im Unternehmensportal auf „Anmelden“.",
+                            "Melden Sie sich mit Ihrer Firmen-E-Mail-Adresse und Ihrem Passwort an.",
+                            "Folgen Sie den Anweisungen, bis die Registrierung abgeschlossen ist."
+                        ] },
+                        { type: "info", content: "Kehren Sie danach zu diesem Fenster zurück und klicken Sie auf „Weiter“." }
+                    ]
+                },
+                {
+                    id: "screen",
+                    displayName: "Bildschirmfreigabe",
+                    guiIndex: 6,
+                    icon: "SF=rectangle.inset.filled.and.person.filled",
+                    stepType: "info",
+                    paths: [],
+                    guidanceTitle: "Bildschirmfreigabe für Microsoft Teams",
+                    guidanceContent: [
+                        { type: "text", content: "Damit Sie in Teams-Besprechungen Ihren Bildschirm teilen können, muss macOS Teams die Bildschirmaufnahme erlauben. Die Systemeinstellungen werden dafür jetzt geöffnet." },
+                        { type: "bullets", items: [
+                            "Aktivieren Sie den Schalter bei „Microsoft Teams“.",
+                            "Steht Teams nicht in der Liste: Klicken Sie auf „+“ und wählen Sie im Ordner „Programme“ „Microsoft Teams“ aus.",
+                            "Bestätigen Sie mit Ihrem Mac-Passwort."
+                        ] },
+                        { type: "info", content: "Kehren Sie danach zu diesem Fenster zurück und klicken Sie auf „Weiter“." }
+                    ]
+                },
+                {
                     id: "done",
                     displayName: "Fertig",
-                    guiIndex: 5,
+                    guiIndex: 7,
                     icon: "SF=checkmark.seal.fill",
                     stepType: "info",
                     paths: [],
@@ -545,6 +590,26 @@ function configureDock() {
     info "Dock configured."
 }
 
+function openCompanyPortal() {
+    if [[ ! -d "${companyPortalAppPath}" ]]; then
+        warning "'${companyPortalAppPath}' is not installed; cannot open it for sign-in."
+        return 0
+    fi
+
+    info "Opening Company Portal for the user sign-in."
+    runAsUser /usr/bin/open -a "${companyPortalAppPath}"
+}
+
+function openScreenRecordingSettings() {
+    if [[ ! -d "${teamsAppPath}" ]]; then
+        warning "'${teamsAppPath}' is not installed; skipping the screen recording step."
+        return 0
+    fi
+
+    info "Opening System Settings > Privacy & Security > Screen & System Audio Recording."
+    runAsUser /usr/bin/open "${screenRecordingSettingsURL}"
+}
+
 ####################################################################################################
 #
 # Main
@@ -581,6 +646,15 @@ fi
 if waitForStep "${dockStepIndex}"; then
     configureDock
     /usr/bin/touch "${dockMarker}"
+fi
+
+# Info steps: the user signs in or grants the permission and then clicks "Weiter" on their own.
+if waitForStep "${portalStepIndex}"; then
+    openCompanyPortal
+fi
+
+if waitForStep "${screenStepIndex}"; then
+    openScreenRecordingSettings
 fi
 
 # Wait until the user closes the guide on the last step.
