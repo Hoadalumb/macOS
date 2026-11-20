@@ -479,7 +479,7 @@ info "Launching the setup guide."
 runAsUser /usr/bin/env \
     DIALOG_INSPECT_CONFIG="${guideJSONFile}" \
     DIALOG_PERSIST_PATH="${guideStateDirectory}" \
-    "${dialogBinary}" --inspect-mode --blurscreen > /dev/null 2>&1 &
+    "${dialogBinary}" --inspect-mode > /dev/null 2>&1 &
 dialogPID=$!
 
 if waitForStep "${edgeStepIndex}"; then
