@@ -340,11 +340,36 @@ function waitForStep() {
     done
 }
 
+# usage: currentDefaultBrowser [http|https]
 function currentDefaultBrowser() {
-    runAsUser /usr/bin/osascript -l JavaScript -e '
-        ObjC.import("AppKit");
-        $.NSWorkspace.sharedWorkspace.URLForApplicationToOpenURL($.NSURL.URLWithString("https://example.com")).path.js
-    ' 2>/dev/null
+    local scheme="${1:-https}"
+
+    runAsUser /usr/bin/osascript -l JavaScript -e "
+        ObjC.import('AppKit');
+        \$.NSWorkspace.sharedWorkspace.URLForApplicationToOpenURL(\$.NSURL.URLWithString('${scheme}://example.com')).path.js
+    " 2>/dev/null
+}
+
+# Requests Edge for one URL scheme and waits for the user to confirm the macOS prompt.
+# usage: requestEdgeForScheme http|https
+function requestEdgeForScheme() {
+    local scheme="${1}"
+
+    info "Requesting Microsoft Edge as default handler for '${scheme}'."
+    runAsUser /usr/bin/osascript -l JavaScript -e "
+        ObjC.import('CoreServices');
+        \$.LSSetDefaultHandlerForURLScheme(\$('${scheme}'), \$('${edgeBundleID}'));
+    " > /dev/null 2>&1
+
+    local waited=0
+    until [[ "$(currentDefaultBrowser "${scheme}")" == "${edgeAppPath}" ]]; do
+        if [[ "${waited}" -ge "${edgeConfirmationTimeout}" ]]; then
+            warning "Microsoft Edge was not confirmed for '${scheme}' within ${edgeConfirmationTimeout} seconds."
+            return 1
+        fi
+        /bin/sleep 2
+        waited=$(( waited + 2 ))
+    done
 }
 
 function setEdgeAsDefaultBrowser() {
@@ -358,23 +383,13 @@ function setEdgeAsDefaultBrowser() {
         return 0
     fi
 
-    # macOS asks the user to confirm the change in a system dialog.
-    info "Requesting Microsoft Edge as default browser."
-    runAsUser /usr/bin/osascript -l JavaScript -e "
-        ObjC.import('CoreServices');
-        \$.LSSetDefaultHandlerForURLScheme(\$('http'), \$('${edgeBundleID}'));
-        \$.LSSetDefaultHandlerForURLScheme(\$('https'), \$('${edgeBundleID}'));
-    " > /dev/null 2>&1
+    # macOS asks the user to confirm each change in a system dialog. Confirming "http"
+    # usually switches "https" too, so only ask for "https" if it did not follow.
+    requestEdgeForScheme http || return 0
 
-    local waited=0
-    until [[ "$(currentDefaultBrowser)" == "${edgeAppPath}" ]]; do
-        if [[ "${waited}" -ge "${edgeConfirmationTimeout}" ]]; then
-            warning "Microsoft Edge was not confirmed as default browser within ${edgeConfirmationTimeout} seconds."
-            return 0
-        fi
-        /bin/sleep 2
-        waited=$(( waited + 2 ))
-    done
+    if [[ "$(currentDefaultBrowser https)" != "${edgeAppPath}" ]]; then
+        requestEdgeForScheme https || return 0
+    fi
 
     info "Microsoft Edge is now the default browser."
 }
